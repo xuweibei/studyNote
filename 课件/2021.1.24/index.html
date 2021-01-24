@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="./index.css">
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+			}
+			.box{
+				width:50px;
+				height:50px;
+				background:black 
+			}
+			.box1{
+				background:pink
+			}
+			#box2{
+				background: yellow;
+			}
+    </style>
+  </head>
+  <body>
+    <!-- 1、input的类型 ； 
+					<input type="text" value="123" /><br />
+					<input type="password" value="123" /><br />
+					<input type="button" value="按钮" /><br />
+					<input type="checkbox" /><br />
+					<input type="radio" /><br />
+					<input type="file" /><br />
+					<input type="submit" /><br />
+		2、常见的样式；
+		 width,height,border,background,color,padding,margin,font-size,
+		3、样式的几种写法； 
+			1) 、行间样式；
+			2）、外部样式表；
+			3）、内部样式表
+			!important>行间>id>内部>外部
+	-->
+
+    <!-- <div
+      style="
+        width: 200px;
+        height: 200px;
+        background: red;
+        border: 5px solid black;
+        color: blue;
+        font-size: 50px;
+        /* padding: 10px; */
+        /* padding: 10px 20px 30px 40px; */上、右、下、左
+        /* padding: 10px 20px; */上下、左右
+      "
+    >
+      <div
+        style="width: 60px; height: 60px; background: pink; margin: 10px"
+			></div> -->
+			<!-- <div style="width:200px;height:200px;background: red;"></div> -->
+			<div class='box' id='box2' style='background:red' ></div>
+			<div class='box box1' id='box3'></div>
+
+    </div>
+  </body>
+</html>

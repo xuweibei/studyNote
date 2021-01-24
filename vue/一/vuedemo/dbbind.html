@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no"/>
+    <title>双向绑定原理</title>
+</head>
+<body>
+<input type="text" />
+<span id="text"></span>
+<script>
+    var text=document.getElementById("text");
+    var data={};
+    var value="";
+    Object.defineProperty(data,"name",{
+        get(){
+            return value;
+        },
+        //监听数据发生变化
+        set(val){
+            // console.log(val);
+            text.innerHTML=val;
+            value=val;
+        }
+    });
+    window.addEventListener("input",function(e){
+        // console.log(e.target.value);
+        data.name=e.target.value;
+        console.log(data.name);
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <div :class="{box:isShow}"></div>
+      <input @click="isShow = !isShow" type="button" />
+      <div
+        :style="{fontSize:'20px',color:'red',width:'100px',height:'100px',background:'blue'}"
+      ></div>
+      <div :style="baseStyle"></div>
+      <input v-model="some" />
+      <span>{{some}}</span>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            isShow: true,
+            some: '123',
+            baseStyle: {
+              width: '200px',
+              height: '200px',
+              background: 'red',
+            },
+          };
+        },
+      });
+    </script>
+  </body>
+</html>

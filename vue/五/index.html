@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+      let App = {
+        template: `
+				<div>子级{{title}}<br/><button @click='setChildren'>来吧</button></div>
+				`,
+        // props: ['title'],
+        props: {
+          title: {
+            //子级接收父组件传值方式
+            type: String, //类型
+            required: true, //是否必传
+          },
+        },
+        methods: {
+          setChildren() {
+            this.$emit('setParent', '我是子组件传过来的值啊'); //定义父级调用的时候的方法
+          },
+        },
+      };
+      let Home = {
+        template: `
+				<App title='我是父组件' @setParent='jiushi($event)'/>`, //写好子级的定义好的方法，后面跟上自己的方法
+        data() {
+          return {
+            name: '名字',
+          };
+        },
+        components: {
+          App,
+        },
+        methods: {
+          jiushi(val) {
+            //这里拿到的就是子级传过来的数据了
+            console.log(val);
+          },
+        },
+      };
+      new Vue({
+        el: '#app',
+        template: `<Home/>`,
+        components: {
+          Home,
+        },
+      });
+    </script>
+  </body>
+</html>

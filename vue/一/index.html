@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>{{name}}</div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        // data() {
+        //   return {
+        //     name: '哈哈',
+        //   };
+        // },
+        data: {
+          name: '啦啦',
+        },
+      });
+      //面试题 new Vue里面的data数据源用哪种方式更好 函数或者对象，为什么
+      //用函数的方式更好，因为，vue是单页应用，data如果使用对象的方式，则多个组件跳转的时候就
+      //会出现引用地址被替换的情况，容易导致问题的出现，而使用函数初始化一个作用域，防止各个组件相互引用
+
+      //用cdn引入方式加载vue，首次加载会出现 闪烁问题，比如 上面的 name 第一次加载的时候会首先出现
+      //{{name}} 字样然后才变成 啦啦  ，npm脚手架是不会出现这个问题 解决方式 v-cloak
+    </script>
+  </body>
+</html>

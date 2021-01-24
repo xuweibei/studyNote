@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <ul>
+        <li v-for="(val,index) in list">
+          {{val.title}}
+          <span v-if="val.type === 1">待付款</span>
+          <template v-if="val.type === 2">考虑的实际发货</template>
+          <span v-else>fjkds </span>
+        </li>
+      </ul>
+      <div v-show="false">v-show</div>
+      <span>{{content}}</span>
+      <span v-html="content"></span>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            list: [
+              {
+                num: 1,
+                title: '哈哈哈',
+                type: 1,
+              },
+              {
+                num: 2,
+                title: '啦啦啦',
+                type: 2,
+              },
+              {
+                num: 3,
+                title: '呵呵呵',
+              },
+            ],
+            content: '<span>123</span>',
+          };
+        },
+      });
+      //template 虚拟标签，没有实际dom
+      //v-show控制display:none
+      //v-if删除整个dom元素
+      //v-html 解析字符串 按照正常格式
+    </script>
+  </body>
+</html>

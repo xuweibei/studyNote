@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div
+        @click="tan"
+        :style="{width:'100px',height:'100px',backgroundColor:'red'}"
+      >
+        <button @click:stop="zaitan">haha</button>
+        <button @click.once.stop="onces">zailai</button>
+        <button @mouseover="yidong($event)">移动</button>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data() {
+          return {};
+        },
+        methods: {
+          tan() {
+            alert(1);
+          },
+          zaitan() {
+            alert(2);
+          },
+          onces() {
+            alert(3);
+          },
+          yidong(e) {
+            console.log(e);
+          },
+        },
+      });
+      //@click:stop 阻止事件冒泡
+      //@click:once 只执行一次点击事件
+      //mouseover 鼠标移动到元素上  $event 事件对象
+      //keyup 键盘事件 keyup:enter 回车事件
+    </script>
+  </body>
+</html>
