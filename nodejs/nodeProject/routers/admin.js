@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const Category = require('../models/category');
+const Content = require('../models/content');
 
 router.use((req, res, next) => {
   if (!req.userInfo.isAdmin) {
@@ -32,7 +33,7 @@ router.get('/user', (req, res) => {
       .then((data) => {
         res.render('admin/user_index', {
           userInfo: req.userInfo,
-          users: data.map((itme) => itme._doc),
+          users: data,
           page: page,
           limit: limit,
           pages: pages,
@@ -57,7 +58,7 @@ router.get('/category', (req, res) => {
       .then((data) => {
         res.render('admin/category_index', {
           userInfo: req.userInfo,
-          categories: data.map((itme) => itme._doc),
+          categories: data,
           page: page,
           limit: limit,
           pages: pages,
@@ -183,6 +184,122 @@ router.get('/category/delete', (req, res) => {
       userInfo: req.userInfo,
       message: '删除成功',
       url: '/admin/category',
+    });
+  });
+});
+
+router.get('/content', (req, res) => {
+  let page = req.query.page || 1;
+  let limit = 2;
+  let pages = 0;
+  Content.count().then((count) => {
+    pages = Math.ceil(count / limit);
+    page = Math.min(page, pages);
+    page = Math.max(page, 1);
+    let skip = (page - 1) * limit;
+    Content.find()
+      .limit(limit)
+      .skip(skip)
+      .sort({
+        addTime: -1,
+      })
+      .then((data) => {
+        res.render('admin/content_index', {
+          userInfo: req.userInfo,
+          contents: data,
+          page: page,
+          limit: limit,
+          pages: pages,
+          count: count,
+        });
+      });
+  });
+});
+router.get('/content/add', (req, res) => {
+  Category.find().then((data) => {
+    res.render('admin/content_add', {
+      userInfo: req.userInfo,
+      categories: data,
+    });
+  });
+});
+
+router.post('/content/add', (req, res) => {
+  const { category, title, description, content } = req.body;
+
+  if (!category || !title || !description || !content) {
+    res.render('admin/error', {
+      userInfo: req.userInfo,
+      message: '内容填写完整',
+    });
+  }
+  new Content({
+    category: category,
+    title: title,
+    description: description,
+    content: content,
+    user: req.userInfo._id.toString(),
+  })
+    .save()
+    .then((data) => {
+      res.render('admin/error', {
+        userInfo: req.userInfo,
+        message: '添加成功',
+        url: '/admin/content',
+      });
+    });
+});
+
+router.get('/content/edit', (req, res) => {
+  const id = req.query.id;
+  Category.find().then((list) => {
+    Content.findOne({
+      _id: id,
+    }).then((data) => {
+      res.render('admin/content_edit', {
+        userInfo: req.userInfo,
+        content: data,
+        categories: list,
+      });
+    });
+  });
+});
+
+router.post('/content/edit', (req, res) => {
+  const { category, title, description, content } = req.body;
+  const id = req.query.id;
+  if (!category || !title || !description || !content) {
+    res.render('admin/error', {
+      userInfo: req.userInfo,
+      message: '内容填写完整',
+    });
+  }
+  Content.update(
+    {
+      _id: id,
+    },
+    {
+      category: category,
+      title: title,
+      description: description,
+      content: content,
+    }
+  ).then((data) => {
+    res.render('admin/error', {
+      userInfo: req.userInfo,
+      message: '更新成功',
+      url: '/admin/content',
+    });
+  });
+});
+
+router.get('/content/delete', (req, res) => {
+  const id = req.query.id;
+  Content.remove({ _id: id }).then((data) => {
+    res.render('admin/success', {
+      userInfo: req.userInfo,
+      message: '删除成功',
+      url: '/admin/content',
     });
   });
 });
